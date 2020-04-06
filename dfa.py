@@ -7,7 +7,10 @@
 """
 
 
-transitions = { 
+transitions = {'s0':{'DIGIT':'s1','.':'s2'},
+	       's1':{'DIGIT':'s1','.':'s3'},
+	       's2':{'DIGIT':'s3'},
+	       's3':{'DIGIT':'s3'},
 
 	# (Α) Συμπληρώστε τον πίνακα μεταβάσεων ως λεξικό (dictionary).
 	# Η αρχική κατάσταση πρέπει να ονομάζεται 's0'.
@@ -17,7 +20,7 @@ transitions = {
      	      } 
 
 
-accepts = { 
+accepts = { 's3':'FLOAT_TOKEN',
 
 	# (Β) Συμπληρώστε το λεξικό των καταστάσεων αποδοχής και των
 	# αντίστοιχων επιστρεφόμενων συμβόλων (tokens)
@@ -34,6 +37,9 @@ def get_char(text,pos):
 	if pos<0 or pos>=len(text): return None
 	
 	c = text[pos]
+	
+	if c>='0' and c<='9':
+		return 'DIGIT'
 	
 	# (Γ) Προαιρετικά, μπορείτε να ομαδοποιήσετε τους
 	# χαρακτήρες εισόδου εδώ.
